@@ -45,7 +45,7 @@ func createEvent(context *gin.Context) {
 		return
 	}
 
-	event.ID = 1
+	// event.ID = 1
 	event.UserID = 1
 	err = event.Save()
 	if err != nil {
@@ -102,7 +102,27 @@ func deleteEvent(context *gin.Context) {
 		fmt.Println(err)
 		return
 	}
-	
+
 	context.JSON(http.StatusOK, gin.H{"message": "Event Deleted"})
 
+}
+
+func createUser(context *gin.Context) {
+	var user models.User
+	err := context.ShouldBindJSON(&user)
+
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse request (user) data"})
+		return
+	}
+
+	// user.ID = 2
+	err = user.Save()
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": "Internal server error during DB writing"})
+		fmt.Println(err)
+		return
+	}
+	context.JSON(http.StatusCreated, gin.H{"message": "User Created", "user": user})
+	print(err)
 }

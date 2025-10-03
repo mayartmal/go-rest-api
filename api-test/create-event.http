@@ -2,7 +2,7 @@ POST http://localhost:8080/events
 Content-Type: application/json
 
 {
-    "name": "Test Event",
+    "name": "Tes32t Event",
     "description": "Just to test if everithing ok",
     "location": "Tiflis",
     "datetime": "2025-01-01T15:30:00.000Z"
