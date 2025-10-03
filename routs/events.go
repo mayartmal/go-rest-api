@@ -107,7 +107,7 @@ func deleteEvent(context *gin.Context) {
 
 }
 
-func createUser(context *gin.Context) {
+func signup(context *gin.Context) {
 	var user models.User
 	err := context.ShouldBindJSON(&user)
 
@@ -125,4 +125,21 @@ func createUser(context *gin.Context) {
 	}
 	context.JSON(http.StatusCreated, gin.H{"message": "User Created", "user": user})
 	print(err)
+}
+
+func login(context *gin.Context) {
+	var user models.User
+	err := context.ShouldBindJSON(&user)
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse request (user) data"})
+		return
+	}
+	err = user.Validate()
+	if err != nil {
+		context.JSON(http.StatusUnauthorized, gin.H{"message": "Error during login"})
+		fmt.Println(err)
+		return
+	}
+	context.JSON(http.StatusOK, gin.H{"message": "Login successful"})
+
 }
