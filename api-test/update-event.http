@@ -1,9 +1,9 @@
 PUT http://localhost:8080/events/3
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFydGVtIiwiZXhwIjoxNzU5NzUzMDcwLCJ1c2VySWQiOjF9.6gou-0kF7X4CtoVDRKL0TpOcmZuQTvzvzhQSzNyxwSQ
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFydGVtIiwiZXhwIjoxNzU5NzU0NDgzLCJ1c2VySWQiOjF9.T3VfwCqcULGhtahHrLSpjVpyl3wsfPScFr1UG2kuAqU
 
 {
-    "name": "mega party",
+    "name": "mega party 33",
     "description": "Jupdated event",
     "location": "Tiflis",
     "datetime": "2025-01-01T15:30:00.000Z"

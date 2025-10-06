@@ -1,10 +1,10 @@
 POST http://localhost:8080/events
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFydGVtIiwiZXhwIjoxNzU5NzUyMzAwLCJ1c2VySWQiOjF9.5o9I76bPR-1KXw76C7F9zdlERRnb_56NmJsNH93ZFpE
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxleGEiLCJleHAiOjE3NTk3NTg5MzUsInVzZXJJZCI6MX0.KYfeZX9r2IJHJr9rtUxpVFiG_GBy-BJePtVZCG5Kx98
 
 {
-    "name": "MEGA Tusa",
-    "description": "artem party",
+    "name": "LexaD",
+    "description": "lexa party",
     "location": "Tiflis",
     "datetime": "2025-01-01T15:30:00.000Z"
 }

@@ -65,20 +65,28 @@ func updateEvent(context *gin.Context) {
 		return
 	}
 	fmt.Println(eventId)
-	_, err = models.GetEventById(eventId)
+	targetEvent, err := models.GetEventById(eventId)
+	actorId := context.GetInt64("userId")
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"message": "Internal server error during DB reading"})
 		fmt.Println(err)
 		return
 	}
-	var event models.Event
-	event.ID = eventId
-	err = context.ShouldBindJSON(&event)
+
+	if targetEvent.UserID != actorId {
+		context.JSON(http.StatusUnauthorized, gin.H{"message": "You have no acces to edit the event"})
+		fmt.Println(err)
+		return
+	}
+
+	var updatedEvent models.Event
+	updatedEvent.ID = eventId
+	err = context.ShouldBindJSON(&updatedEvent)
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse request (event) data"})
 		return
 	}
-	err = event.Update()
+	err = updatedEvent.Update()
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"message": "Internal server error during DB updating"})
 		fmt.Println(err)
@@ -94,13 +102,22 @@ func deleteEvent(context *gin.Context) {
 		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse event ID"})
 		return
 	}
-	event, err := models.GetEventById(eventId)
+	targetEvent, err := models.GetEventById(eventId)
+	actorId := context.GetInt64("userId")
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"message": "Internal server error during DB reading"})
 		fmt.Println(err)
 		return
 	}
-	err = event.Delete()
+	if targetEvent.UserID != actorId {
+		context.JSON(http.StatusUnauthorized, gin.H{"message": "You have no acces to delete the event"})
+		fmt.Println(err)
+		return
+	}
+
+
+
+	err = targetEvent.Delete()
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"message": "Internal server error during event deletion from DB"})
 		fmt.Println(err)
@@ -153,3 +170,4 @@ func login(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{"message": "Login successful", "token": token})
 
 }
+
