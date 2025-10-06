@@ -1,9 +1,10 @@
-PUT http://localhost:8080/events/2
+PUT http://localhost:8080/events/3
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFydGVtIiwiZXhwIjoxNzU5NzUzMDcwLCJ1c2VySWQiOjF9.6gou-0kF7X4CtoVDRKL0TpOcmZuQTvzvzhQSzNyxwSQ
 
 {
-    "name": "UPDATED2",
-    "description": "Just to test if everithing ok",
+    "name": "mega party",
+    "description": "Jupdated event",
     "location": "Tiflis",
     "datetime": "2025-01-01T15:30:00.000Z"
 }

@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"example.com/rest-api/models"
+	"example.com/rest-api/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -37,7 +38,9 @@ func getEvents(context *gin.Context) {
 }
 
 func createEvent(context *gin.Context) {
+
 	var event models.Event
+	userId := context.GetInt64("userId")
 	err := context.ShouldBindJSON(&event)
 
 	if err != nil {
@@ -45,8 +48,7 @@ func createEvent(context *gin.Context) {
 		return
 	}
 
-	// event.ID = 1
-	event.UserID = 1
+	event.UserID = userId
 	err = event.Save()
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"message": "Internal server error during DB writing"})
@@ -62,6 +64,7 @@ func updateEvent(context *gin.Context) {
 		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse event ID"})
 		return
 	}
+	fmt.Println(eventId)
 	_, err = models.GetEventById(eventId)
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"message": "Internal server error during DB reading"})
@@ -69,6 +72,7 @@ func updateEvent(context *gin.Context) {
 		return
 	}
 	var event models.Event
+	event.ID = eventId
 	err = context.ShouldBindJSON(&event)
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse request (event) data"})
@@ -81,7 +85,7 @@ func updateEvent(context *gin.Context) {
 		return
 	}
 
-	context.JSON(http.StatusOK, gin.H{"message": "Event Updated", "event": event})
+	context.JSON(http.StatusOK, gin.H{"message": "Event Updated"})
 }
 
 func deleteEvent(context *gin.Context) {
@@ -140,6 +144,12 @@ func login(context *gin.Context) {
 		fmt.Println(err)
 		return
 	}
-	context.JSON(http.StatusOK, gin.H{"message": "Login successful"})
+
+	token, err := utils.GenerateToken(user.Email, user.ID)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": "Error during token generation"})
+		fmt.Println(err)
+	}
+	context.JSON(http.StatusOK, gin.H{"message": "Login successful", "token": token})
 
 }

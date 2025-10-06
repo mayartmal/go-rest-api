@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"time"
 
 	"example.com/rest-api/db"
@@ -12,7 +13,7 @@ type Event struct {
 	Description string    `binding:"required"`
 	Location    string    `binding:"required"`
 	DateTime    time.Time `binding:"required"`
-	UserID      int
+	UserID      int64
 }
 
 var events = []Event{}
@@ -70,7 +71,7 @@ func GetEventById(id int64) (*Event, error) {
 
 }
 
-func (e Event) Update() error {
+func (e *Event) Update() error {
 	query := `
 	UPDATE events
 	SET name = ?, description = ?, location = ?, datetime = ? 
@@ -80,6 +81,7 @@ func (e Event) Update() error {
 		return err
 	}
 	defer stmt.Close()
+	fmt.Println(e.Name, e.Description, e.Location, e.DateTime, e.ID)
 	_, err = stmt.Exec(e.Name, e.Description, e.Location, e.DateTime, e.ID)
 	return err
 }

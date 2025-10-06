@@ -1,1 +1,2 @@
-DELETE http://localhost:8080/events/2
+DELETE http://localhost:8080/events/4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFydGVtIiwiZXhwIjoxNzU5NzUyMDU2LCJ1c2VySWQiOjEwfQ.Hxtr0zTrC0xNYfZuuw7DuA7P9AVWyFRl2j40TKx78y8

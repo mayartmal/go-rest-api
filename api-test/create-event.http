@@ -1,9 +1,10 @@
 POST http://localhost:8080/events
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFydGVtIiwiZXhwIjoxNzU5NzUyMzAwLCJ1c2VySWQiOjF9.5o9I76bPR-1KXw76C7F9zdlERRnb_56NmJsNH93ZFpE
 
 {
-    "name": "Tes32t Event",
-    "description": "Just to test if everithing ok",
+    "name": "MEGA Tusa",
+    "description": "artem party",
     "location": "Tiflis",
     "datetime": "2025-01-01T15:30:00.000Z"
 }
